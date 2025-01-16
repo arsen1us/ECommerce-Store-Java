@@ -40,11 +40,11 @@ public class User {
         return id;
     }
     
-    public void setUsername(String username)
+    public void setName(String name)
     {
-        this.name = username;
+        this.name = name;
     }
-    public String getUsername()
+    public String getName()
     {
         return name;
     }

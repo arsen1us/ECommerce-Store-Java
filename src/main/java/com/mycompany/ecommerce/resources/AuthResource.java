@@ -19,8 +19,9 @@ public class AuthResource {
     @Path("/register")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response register(User user) {
-        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+    public Response register(User user)
+    {   
+        if (userRepository.findByUsername(user.getName()).isPresent()) {
             return Response.status(Response.Status.CONFLICT)
                     .entity("Username is already taken.")
                     .build();
@@ -34,6 +35,8 @@ public class AuthResource {
 
         // Хэширование пароля перед сохранением
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+        
+        // Сохранение
         userRepository.save(user);
 
         return Response.status(Response.Status.CREATED).entity("User registered successfully.").build();
@@ -44,7 +47,7 @@ public class AuthResource {
     @Consumes("application/json")
     @Produces("application/json")
     public Response login(User user) {
-        var existingUser = userRepository.findByUsername(user.getUsername());
+        var existingUser = userRepository.findByEmail(user.getEmail());
 
         if (existingUser.isEmpty() || !BCrypt.checkpw(user.getPassword(), existingUser.get().getPassword())) {
             return Response.status(Response.Status.UNAUTHORIZED)
