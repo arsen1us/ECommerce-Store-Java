@@ -11,10 +11,10 @@ public class UserRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public Optional<User> findByUsername(String username) {
+    public Optional<User> findByUsername(String name) {
         return entityManager
-                .createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
-                .setParameter("username", username)
+                .createQuery("SELECT u FROM User u WHERE u.name = :name", User.class)
+                .setParameter("name", name)
                 .getResultStream()
                 .findFirst();
     }

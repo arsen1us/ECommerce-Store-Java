@@ -1,0 +1,5 @@
+com\mycompany\ecommerce\User.class
+com\mycompany\ecommerce\resources\AuthResource.class
+com\mycompany\ecommerce\resources\JakartaEE10Resource.class
+com\mycompany\ecommerce\UserRepository.class
+com\mycompany\ecommerce\JakartaRestConfiguration.class

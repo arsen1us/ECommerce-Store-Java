@@ -16,7 +16,7 @@ public class User {
     @NotBlank
     @Column(unique = true, nullable = false)
     @Size(min = 5, max = 50)
-    private String username;
+    private String name;
 
     @NotBlank
     @Column(nullable = false)
@@ -30,6 +30,49 @@ public class User {
 
     @Column(nullable = false)
     private String role = "USER"; // По умолчанию - пользователь (USER)
-
-    // Геттеры и сеттеры
+    
+    public void setId(Long id)
+    {
+        this.id = id;
+    }
+    public Long getId()
+    {
+        return id;
+    }
+    
+    public void setUsername(String username)
+    {
+        this.name = username;
+    }
+    public String getUsername()
+    {
+        return name;
+    }
+    
+    public void setPassword(String password)
+    {
+        this.password = password;
+    }
+    public String getPassword()
+    {
+        return password;
+    }
+    
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
+    public String getEmail()
+    {
+        return email;
+    }
+    
+    public void setRole(String role)
+    {
+        this.role = role;
+    }
+    public String getRole()
+    {
+        return role;
+    }
 }
