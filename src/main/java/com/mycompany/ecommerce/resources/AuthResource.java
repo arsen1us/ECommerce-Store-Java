@@ -14,7 +14,9 @@ public class AuthResource {
 
     @Inject
     private UserRepository userRepository;
-
+    // Регистрация пользователя 
+    // GET: http://desktop-9rtlih5:8090/ECommerce-Store-Java/api/auth/register
+    
     @POST
     @Path("/register")
     @Consumes("application/json")
@@ -41,7 +43,10 @@ public class AuthResource {
 
         return Response.status(Response.Status.CREATED).entity("User registered successfully.").build();
     }
-
+    // Аутентификация пользователя 
+    // GET: http://desktop-9rtlih5:8090/ECommerce-Store-Java/api/auth/register
+    
+    
     @POST
     @Path("/login")
     @Consumes("application/json")
