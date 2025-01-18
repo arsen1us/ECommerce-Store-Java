@@ -36,6 +36,10 @@
                 // Успешная регистрация
                 .then(response => {
                     alert('Registration successful!', response);
+                    const token = response.headers['authorization'];
+                    if(token){
+                        localStorage.setItem('jwt', token.split(' ')[1]);
+                    }
                 })
                 // Отображение ошибки
                 .catch(error => {

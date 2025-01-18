@@ -11,6 +11,7 @@ public class UserRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
+    // Получить пользователя по имени
     public Optional<User> findByUsername(String name) {
         return entityManager
                 .createQuery("SELECT u FROM User u WHERE u.name = :name", User.class)
@@ -19,6 +20,7 @@ public class UserRepository {
                 .findFirst();
     }
 
+    // Получить пользователя по паролю
     public Optional<User> findByEmail(String email) {
         return entityManager
                 .createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
@@ -27,6 +29,7 @@ public class UserRepository {
                 .findFirst();
     }
 
+    // Добавить нового пользователя
     public void save(User user) {
         entityManager.persist(user);
     }
