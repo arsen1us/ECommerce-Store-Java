@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Детали кроссовка</title>
+    </h:head>
+    <h:body>
+        <h1>Информация о кроссовке</h1>
+
+        <h:panelGrid columns="2" rendered="#{not empty sneakerDetailsBean.sneaker}">
+            <h:outputText value="Название:" />
+            <h:outputText value="#{sneakerDetailsBean.sneaker.name}" />
+
+            <h:outputText value="Бренд:" />
+            <h:outputText value="#{sneakerDetailsBean.sneaker.brand}" />
+
+            <h:outputText value="Цена:" />
+            <h:outputText value="#{sneakerDetailsBean.sneaker.price}" />
+
+            <h:outputText value="Размер:" />
+            <h:outputText value="#{sneakerDetailsBean.sneaker.size}" />
+
+            <h:outputText value="Цвет:" />
+            <h:outputText value="#{sneakerDetailsBean.sneaker.color}" />
+
+            <h:outputText value="Количество на складе:" />
+            <h:outputText value="#{sneakerDetailsBean.sneaker.count}" />
+
+            <h:outputText value="Доступность:" />
+            <h:outputText value="#{sneakerDetailsBean.sneaker.available ? 'Доступен' : 'Не доступен'}" />
+        </h:panelGrid>
+
+        <h:panelGroup rendered="#{empty sneakerDetailsBean.sneaker}">
+            <h:outputText value="Кроссовок не найден или произошла ошибка при загрузке." />
+        </h:panelGroup>
+
+        <!-- Форма для удаления -->
+        <h:form>
+            <h:commandButton value="Удалить" action="#{sneakerDetailsBean.deleteSneaker}">
+                <f:ajax execute="@form" render="@none" />
+            </h:commandButton>
+        </h:form>
+        <!-- Форма для изменения -->
+        <h:form>
+            <h:commandButton value="Редактировать" action="editSneaker">
+                <f:param name="id" value="#{sneakerDetailsBean.sneaker.id}" />
+            </h:commandButton>
+        </h:form>
+
+        <!-- Ссылка для возврата -->
+        <h:link value="Вернуться к списку" outcome="allSneakers" />
+    </h:body>
+</html>

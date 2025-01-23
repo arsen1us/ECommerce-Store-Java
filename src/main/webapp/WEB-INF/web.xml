@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
-         version="6.0">
-    
+<web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <!-- Подключение фильтрации CORS-запросов -->
+    <context-param>
+        <param-name>jakarta.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
     <filter>
         <filter-name>CorsFilter</filter-name>
         <filter-class>com.mycompany.ecommerce.filters.CorsFilter</filter-class>
@@ -24,8 +24,8 @@
         <!-- Маршруты для которых нужна будет авторизация -->
         <url-pattern>/api/sneakers/*</url-pattern>
     </filter-mapping>
-    
     <servlet>
+        
         <servlet-name>javax.ws.rs.core.Application</servlet-name>
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
@@ -35,24 +35,14 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
     
-    <!-- Сервлет для регистрации -->
     <servlet>
-        <servlet-name>RegisterPage</servlet-name>
-        <jsp-file>/WEB-INF/jsp/register.jsp</jsp-file>
+        <servlet-name>FacesServlet</servlet-name>
+        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>RegisterPage</servlet-name>
-        <url-pattern>/register</url-pattern>
-    </servlet-mapping>
-    
-    <!-- Сервлет для входа -->
-    <servlet>
-        <servlet-name>LoginPage</servlet-name>
-        <jsp-file>/WEB-INF/jsp/login.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>LoginPage</servlet-name>
-        <url-pattern>/login</url-pattern>
+        <servlet-name>FacesServlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
     
     <!-- Настройте путь к API -->
@@ -60,9 +50,16 @@
         <servlet-name>javax.ws.rs.core.Application</servlet-name>
         <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>faces/index.xhtml</welcome-file>
+    </welcome-file-list>
 </web-app>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<head>
+    <title>Sneaker List</title>
+</head>
+<body>
+    <h1>Полный список кроссовок</h1>
+
+    <!-- Вывод сообщения об ошибке -->
+    <h:messages id="messages" globalOnly="true" />
+
+    <ul>
+        <ui:repeat value="#{sneakerBean.sneakers}" var="sneaker">
+            <li>
+                <h:link value="#{sneaker.name}" outcome="sneaker">
+                    <f:param name="id" value="#{sneaker.id}" />
+                </h:link>
+            </li>
+        </ui:repeat>
+    </ul>
+</body>
+</html>

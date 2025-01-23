@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Редактирование кроссовка</title>
+    </h:head>
+    <h:body>
+        <h1>Редактирование информации о кроссовке</h1>
+
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel for="name" value="Название:" />
+                <h:inputText id="name" value="#{sneakerDetailsBean.sneaker.name}" />
+
+                <h:outputLabel for="brand" value="Бренд:" />
+                <h:inputText id="brand" value="#{sneakerDetailsBean.sneaker.brand}" />
+
+                <h:outputLabel for="price" value="Цена:" />
+                <h:inputText id="price" value="#{sneakerDetailsBean.sneaker.price}" />
+
+                <h:outputLabel for="size" value="Размер:" />
+                <h:inputText id="size" value="#{sneakerDetailsBean.sneaker.size}" />
+
+                <h:outputLabel for="color" value="Цвет:" />
+                <h:inputText id="color" value="#{sneakerDetailsBean.sneaker.color}" />
+
+                <h:outputLabel for="count" value="Количество на складе:" />
+                <h:inputText id="count" value="#{sneakerDetailsBean.sneaker.count}" />
+
+                <h:outputLabel for="available" value="Доступность:" />
+                <h:selectBooleanCheckbox id="available" value="#{sneakerDetailsBean.sneaker.available}" />
+            </h:panelGrid>
+
+            <h:commandButton value="Сохранить изменения" action="#{sneakerDetailsBean.updateSneaker}" />
+            <h:link value="Отмена" outcome="sneakerDetails" />
+        </h:form>
+    </h:body>
+</html>

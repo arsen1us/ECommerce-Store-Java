@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Add Sneaker</title>
+</h:head>
+<h:body>
+    <h:form id="addSneakerForm">
+        <h1>Add Sneaker</h1>
+
+        <!-- Input for Name -->
+        <h:outputLabel for="name" value="Name:" />
+        <h:inputText id="name" value="#{addSneakerBean.name}" required="true"
+                     requiredMessage="Name is required" />
+        <h:message for="name" style="color:red;" />
+        <br /><br />
+
+        <!-- Input for Brand -->
+        <h:outputLabel for="brand" value="Brand:" />
+        <h:inputText id="brand" value="#{addSneakerBean.brand}" required="true"
+                     requiredMessage="Brand is required" />
+        <h:message for="brand" style="color:red;" />
+        <br /><br />
+
+        <!-- Input for Price -->
+        <h:outputLabel for="price" value="Price:" />
+        <h:inputText id="price" value="#{addSneakerBean.price}" required="true"
+                     requiredMessage="Price is required" />
+        <h:message for="price" style="color:red;" />
+        <br /><br />
+
+        <!-- Input for Size -->
+        <h:outputLabel for="size" value="Size:" />
+        <h:inputText id="size" value="#{addSneakerBean.size}" required="true"
+                     requiredMessage="Size is required" />
+        <h:message for="size" style="color:red;" />
+        <br /><br />
+
+        <!-- Input for Color -->
+        <h:outputLabel for="color" value="Color:" />
+        <h:inputText id="color" value="#{addSneakerBean.color}" required="true"
+                     requiredMessage="Color is required" />
+        <h:message for="color" style="color:red;" />
+        <br /><br />
+
+        <!-- Input for Count -->
+        <h:outputLabel for="count" value="Count:" />
+        <h:inputText id="count" value="#{addSneakerBean.count}" required="true"
+                     requiredMessage="Count is required" />
+        <h:message for="count" style="color:red;" />
+        <br /><br />
+
+        <!-- Checkbox for Availability -->
+        <h:outputLabel for="available" value="Available:" />
+        <h:selectBooleanCheckbox id="available" value="#{addSneakerBean.available}" />
+        <br /><br />
+
+        <!-- Submit Button -->
+        <h:commandButton value="Add Sneaker" action="#{addSneakerBean.addSneaker}" />
+        <h:messages style="color:red;" />
+    </h:form>
+</h:body>
+</html>

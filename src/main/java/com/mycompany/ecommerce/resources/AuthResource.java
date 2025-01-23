@@ -16,7 +16,7 @@ public class AuthResource {
     @Inject
     private UserRepository userRepository;
     // Регистрация пользователя 
-    // GET: http://desktop-9rtlih5:8090/ECommerce-Store-Java/api/auth/register
+    // POST: http://desktop-9rtlih5:8090/ECommerce-Store-Java/api/auth/register
     @POST
     @Path("/register")
     @Consumes("application/json")
@@ -48,7 +48,7 @@ public class AuthResource {
             // Успешный ответ
             return Response.ok()
                         .header("Authorization", "Bearer " + token)
-                        .entity("Login successful")
+                        .entity(user)
                         .build();
         }
         catch (Exception ex){
@@ -58,7 +58,7 @@ public class AuthResource {
     }
     
     // Аутентификация пользователя 
-    // GET: http://desktop-9rtlih5:8090/ECommerce-Store-Java/api/auth/register
+    // POST: http://desktop-9rtlih5:8090/ECommerce-Store-Java/api/auth/register
     @POST
     @Path("/login")
     @Consumes("application/json")
