@@ -12,14 +12,14 @@
 
         <!-- Поле для ввода имени -->
         <h:outputLabel for="name" value="Name:" />
-        <h:inputText id="name" value="#{registerBean.name}" required="true" 
+        <h:inputText id="name" value="#{userBean.name}" required="true" 
                      requiredMessage="Name is required" />
         <h:message for="name" style="color:red;" />
         <br/><br/>
 
         <!-- Поле для ввода email -->
         <h:outputLabel for="email" value="Email:" />
-        <h:inputText id="email" value="#{registerBean.email}" required="true"
+        <h:inputText id="email" value="#{userBean.email}" required="true"
                      validatorMessage="Invalid email format"
                      requiredMessage="Email is required">
             <f:validateRegex pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" />
@@ -29,13 +29,13 @@
 
         <!-- Поле для ввода пароля -->
         <h:outputLabel for="password" value="Password:" />
-        <h:inputSecret id="password" value="#{registerBean.password}" required="true"
+        <h:inputSecret id="password" value="#{userBean.password}" required="true"
                        requiredMessage="Password is required" />
         <h:message for="password" style="color:red;" />
         <br/><br/>
 
         <!-- Кнопка регистрации -->
-        <h:commandButton value="Register" action="#{registerBean.register}" />
+        <h:commandButton value="Register" action="#{userBean.register}" />
     </h:form>
 </body>
 </html>

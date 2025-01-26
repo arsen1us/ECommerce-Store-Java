@@ -7,14 +7,14 @@
 <h:body>
     <h:form>
         <h:outputLabel for="email" value="Email:" />
-        <h:inputText id="email" value="#{loginBean.email}" required="true" />
+        <h:inputText id="email" value="#{userBean.email}" required="true" />
         <br />
 
         <h:outputLabel for="password" value="Password:" />
-        <h:inputSecret id="password" value="#{loginBean.password}" required="true" />
+        <h:inputSecret id="password" value="#{userBean.password}" required="true" />
         <br />
 
-        <h:commandButton value="Login" action="#{loginBean.login}" />
+        <h:commandButton value="Login" action="#{userBean.login}" />
         <h:message for="email" />
         <h:message for="password" />
     </h:form>

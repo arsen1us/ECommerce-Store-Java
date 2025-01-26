@@ -6,8 +6,10 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import java.util.Optional;
 import java.util.List;
+import jakarta.enterprise.context.ApplicationScoped;
 
 @Transactional
+@ApplicationScoped
 public class SneakerRepository {
     
     @PersistenceContext
