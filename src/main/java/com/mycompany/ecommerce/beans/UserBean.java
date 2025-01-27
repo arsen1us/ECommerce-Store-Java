@@ -130,8 +130,6 @@ public class UserBean implements Serializable {
     // Загрузить профиль пользователя
     public void loadUserProfile() {
     try {
-        
-        System.out.print(123);
         // Получение jwt-токена
         String token = (String) FacesContext.getCurrentInstance()
                                             .getExternalContext()

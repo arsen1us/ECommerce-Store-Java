@@ -21,6 +21,14 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.io.OutputStream;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mycompany.ecommerce.security.JwtUtil;
+import com.mycompany.ecommerce.Cart;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.Response;
+
 @Named
 @ViewScoped
 public class SneakerDetailsBean implements Serializable {
@@ -123,6 +131,54 @@ public class SneakerDetailsBean implements Serializable {
         }
         catch(Exception ex){
             System.out.println("Error updating sneaker: " + ex.getMessage());
+        }
+    }
+    
+    // Добавление кроссовок в корзину
+    public String addSneakerToCart() {
+        try {
+            
+            // Получение токена из сессии
+            String token = (String) FacesContext.getCurrentInstance()
+                .getExternalContext()
+                .getSessionMap()
+                .get("jwtToken");
+            
+            // Парсинг id пользователя из токена
+            String pureToken = token.replace("Bearer ", "");
+            String userId = JwtUtil.parseTokenForId(pureToken);
+            
+            // Создание и инициализация объекта корзины
+            Cart cart = new Cart();
+            cart.setUserId(Long.parseLong(userId));
+            cart.setSneakerId(this.sneaker.getId());
+            
+            // Создание json-объекта
+            String jsonRequest = String.format("{\"id\":%d, \"userId\":%d, \"sneakerId\":%d}",
+            cart.getId(), cart.getUserId(), cart.getSneakerId());
+
+            // Создание клиента и отправка запроса
+            Client client = ClientBuilder.newClient();
+            Response response = client.target("http://desktop-9rtlih5:8090/ECommerce-Store-Java/api/cart")
+                                  .request("application/json")
+                                  .header("Authorization", token)
+                                  .post(Entity.json(jsonRequest));
+            
+            if (response.getStatus() == 200) {
+                System.out.println("Sneaker successfully added to cart.");
+                
+                return "";
+            } 
+            else {
+                System.out.println("Error adding to cart. Status: " + response.getStatus());
+                
+                return "";
+            }
+        } 
+        catch (Exception ex) {
+            System.out.println("Error adding to cart. Details: " + ex.getMessage());
+            
+            return "";
         }
     }
     

@@ -1,1 +1,6 @@
-com\mycompany\ecommerce\beans\UserProfileBean.class
+com\mycompany\ecommerce\CartRepository.class
+com\mycompany\ecommerce\beans\AddCartBean.class
+com\mycompany\ecommerce\beans\CartBean$1.class
+com\mycompany\ecommerce\beans\CartBean.class
+com\mycompany\ecommerce\Cart.class
+com\mycompany\ecommerce\resources\CartResource.class

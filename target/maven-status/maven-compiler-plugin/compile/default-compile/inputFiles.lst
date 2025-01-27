@@ -1,5 +1,7 @@
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\JakartaRestConfiguration.java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\beans\AddSneakerBean.java
+C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\beans\CartBean.java
+C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\beans\AddCartBean.java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\filters\Secured.java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\UserRepository.java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\resources\JakartaEE10Resource.java
@@ -9,8 +11,12 @@ C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\security\JwtUtil.java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\resources\SneakerResource.java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\Sneaker.java
+C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\beans\UserProfileBean.java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\resources\AuthResource.java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\SneakerRepository.java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\User.java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\beans\SneakerDetailsBean.java
+C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\resources\CartResource.java
+C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\CartRepository.java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\filters\JwtFilter.java
+C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\Cart.java

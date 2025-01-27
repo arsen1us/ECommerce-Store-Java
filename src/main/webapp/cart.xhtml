@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Корзина</title>
+    </h:head>
+    <h:body>
+        <h1>Корзина пользователя</h1>
+
+        <!-- Список кроссовок в корзине -->
+        <h:dataTable value="#{cartBean.carts}" var="cart" border="1">
+            <h:column>
+                <f:facet name="header">Название</f:facet>
+                <h:outputText value="#{cart.id}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Бренд</f:facet>
+                <h:outputText value="#{cart.userId}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Цена</f:facet>
+                <h:outputText value="#{cart.sneakerId}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Действия</f:facet>
+                <h:form>
+                    <h:commandButton value="Удалить" action="#{cartBean.deleteFromCart(cart.id)}" />
+                </h:form>
+            </h:column>
+        </h:dataTable>
+
+        <h:panelGroup rendered="#{cartBean.carts.isEmpty()}">
+            <h:outputText value="Ваша корзина пуста." />
+        </h:panelGroup>
+
+        <!-- Ссылка для возврата -->
+        <h:link value="Вернуться к списку кроссовок" outcome="allSneakers" />
+    </h:body>
+</html>

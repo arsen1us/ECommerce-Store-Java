@@ -35,6 +35,13 @@
             <h:outputText value="Кроссовок не найден или произошла ошибка при загрузке." />
         </h:panelGroup>
 
+        <!-- Форма для добавления в корзину -->
+        <h:form>
+            <h:commandButton value="Добавить в корзину" action="#{sneakerDetailsBean.addSneakerToCart}">
+                <f:ajax execute="@form" render="@none" />
+            </h:commandButton>
+        </h:form>
+        
         <!-- Форма для удаления -->
         <h:form>
             <h:commandButton value="Удалить" action="#{sneakerDetailsBean.deleteSneaker}">
