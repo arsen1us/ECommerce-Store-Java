@@ -28,6 +28,7 @@ import jakarta.ws.rs.client.WebTarget;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
+import java.util.stream.Collectors;
 import com.mycompany.ecommerce.Cart;
 import com.mycompany.ecommerce.security.JwtUtil;
 import jakarta.ws.rs.core.GenericType;
@@ -38,9 +39,14 @@ public class CartBean {
     
     private List<Cart> carts;
     
+    private double totalCartPrice;
+    
     @PostConstruct
     public void init() {
+        // Загрузить корзину
         loadCart();
+        // Посчитать стоимость кроссовок в корзине
+        calculateTotal();
     }
     
     // Загрузка корзины
@@ -100,9 +106,54 @@ public class CartBean {
 //        } catch (Exception ex) {
 //            System.out.println("Error deleting sneaker: " + ex.getMessage());
 //        }
-return "";
+        return "";
     }
 
+    // Создать заказ
+    public void createOrder()
+    {
+        
+    }
+    
+    // Посчитать итоговую стоимость корзины
+    public void calculateTotal()
+    {
+        try {
+            // Получение токена из сессии
+            String token = (String) FacesContext.getCurrentInstance()
+                .getExternalContext()
+                .getSessionMap()
+                .get("jwtToken");
+            
+            // Парсинг id пользователя из токена
+            String pureToken = token.replace("Bearer ", "");
+            String userId = JwtUtil.parseTokenForId(pureToken);
+            
+            Client client = ClientBuilder.newClient();
+            URI uri = new URI("http://desktop-9rtlih5:8090/ECommerce-Store-Java/api/cart/price/" + userId);
+            
+            // Отправка GET-запроса
+            WebTarget target = client.target(uri);
+            Response response = target.request("application/json")
+                .header("Authorization", token)
+                .get();
+
+            if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+                // Успешный ответ
+                this.totalCartPrice = response.readEntity(Double.class);
+            } else {
+                // Обработка ошибки
+                String errorMessage = response.readEntity(String.class);
+                FacesContext.getCurrentInstance()
+                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка загрузки стоимости корзины", errorMessage));
+            }
+        } catch (Exception e) {
+            // Логирование и уведомление об ошибке
+            FacesContext.getCurrentInstance()
+                .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка соединения с API", e.getMessage()));
+        } 
+    }
+    
     // Получить jwt-токен
     private String getJwtToken() {
         return (String) FacesContext.getCurrentInstance()
@@ -113,10 +164,16 @@ return "";
     
     
     public List<Cart> getCarts() {
-        return carts;
+        return this.carts;
     }
-
     public void setCarts(List<Cart> carts) {
         this.carts = carts;
+    }
+    
+    public double getTotalCartPrice(){
+        return this.totalCartPrice;
+    }
+    public void setTotalCartPrice(double totalCartPrice){
+        this.totalCartPrice = totalCartPrice;
     }
 }

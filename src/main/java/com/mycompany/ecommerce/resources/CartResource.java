@@ -10,6 +10,7 @@ import jakarta.ws.rs.core.Response;
 import org.mindrot.jbcrypt.BCrypt;
 import com.mycompany.ecommerce.filters.Secured;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Stateless
 @Path("/cart")
@@ -44,6 +45,49 @@ public class CartResource {
             
             return Response.ok()
                     .entity(carts)
+                    .build();
+        }
+        catch(Exception ex){
+            return Response.status(Response.Status.CONFLICT)
+                    .entity("Не удалось получить корзину. Детали: " + ex.getMessage())
+                    .build();
+        }
+    }
+    
+    // Получить стоимость кроссовок в корзине по id пользователя
+    // GET: http://desktop-9rtlih5:8090/ECommerce-Store-Java/api/cart/price/{userId}
+    @Secured
+    @GET
+    @Path("price/{userId}")
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Response getCartPriceByUserId(@PathParam("userId") long userId)
+    {
+        try{
+            if(userId == 0){
+                return Response.status(Response.Status.CONFLICT)
+                    .entity("Не удалось получить список кроссовок в корзине. Параметр userId == null")
+                    .build();
+            }
+            
+            List<Cart> carts = cartRepository.getCartsByUserId(userId);
+            // Если список cart == null
+            if(carts == null){
+                return Response.status(Response.Status.CONFLICT)
+                    .entity("Не удалось получить список кроссовок в корзине. Параметр userId == null")
+                    .build();
+            }
+            
+            // Получить список id кроссовок
+            List<Long> sneakerIds = carts.stream()
+                .map(cart -> cart.getSneakerId())
+                .collect(Collectors.toList());
+            
+            // Итоговая стоимость
+            double totalPrice = cartRepository.calculatePriceBySneakerIds(sneakerIds);
+            
+            return Response.ok()
+                    .entity(totalPrice)
                     .build();
         }
         catch(Exception ex){

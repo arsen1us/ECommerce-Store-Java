@@ -46,10 +46,31 @@ public class CartRepository {
     }
 
     // Удалить запись из корзины по id
-    public void deleteCartById(long id) {
+    public void deleteCartById(Long id) {
         Cart cart = entityManager.find(Cart.class, id);
         if (cart != null) {
             entityManager.remove(cart);
+        }
+    }
+    
+    // Посчитать итоговую стоимость кроссовок по списку id
+    public double calculatePriceBySneakerIds(List<Long> ids){
+        try{
+            // Если ids == null или пуст
+            if(ids == null || ids.isEmpty()){
+                System.out.print("Не удалось посчитать цену корзины. Параметр ids == null или пуст");
+                return 0;
+            }
+            else{
+                return entityManager
+                    .createQuery("SELECT SUM(s.price) FROM Sneaker s WHERE s.id IN :ids", Double.class)
+                    .setParameter("ids", ids)
+                    .getSingleResult();
+            }
+        }
+        catch(Exception ex){
+            System.out.print("Не удалось посчитать цену корзины. Детали: " + ex.getMessage());
+            return 0;
         }
     }
 }

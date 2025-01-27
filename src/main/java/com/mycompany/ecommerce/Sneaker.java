@@ -49,6 +49,10 @@ public class Sneaker {
     @Column(nullable = false)
     private boolean available;
     
+    // Id категории
+    @Column(nullable = true)
+    private Long categoryId;
+    
     public void setId(Long id)
     {
         this.id = id;
@@ -105,5 +109,14 @@ public class Sneaker {
     }
     public void setAvailable(Boolean available){
         this.available = available;
+    }
+    
+    public Long getCategoryId()
+    {
+        return this.categoryId;
+    }
+    public void setCategoryId(Long categoryId)
+    {
+        this.categoryId = categoryId;
     }
 }
