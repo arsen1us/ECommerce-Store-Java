@@ -86,6 +86,12 @@
             <version>6.0.0.Final</version>
         </dependency> -->
         
+        <dependency>
+            <groupId>jakarta.json.bind</groupId>
+            <artifactId>jakarta.json.bind-api</artifactId>
+            <version>3.0.1</version> <!-- Или используйте последнюю стабильную версию -->
+        </dependency>
+        
     </dependencies>
     
     <!-- Репозиторий для JBoss 

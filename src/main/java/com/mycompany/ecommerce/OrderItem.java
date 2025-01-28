@@ -1,6 +1,8 @@
 package com.mycompany.ecommerce;
 
 import jakarta.persistence.*;
+import jakarta.json.bind.annotation.JsonbTransient;
+import jakarta.json.bind.annotation.JsonbProperty;
 
 @Entity
 @Table(name = "order_items")
@@ -32,8 +34,9 @@ public class OrderItem {
         this.id = id;
     }
 
+    @JsonbTransient // Исключаем обратную ссылку при сериализации
     public Order getOrder() {
-        return this.order;
+        return order;
     }
 
     public void setOrder(Order order) {

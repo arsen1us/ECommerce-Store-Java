@@ -4,16 +4,20 @@ import com.mycompany.ecommerce.Order;
 import com.mycompany.ecommerce.OrderItem;
 import com.mycompany.ecommerce.OrderRepository;
 import com.mycompany.ecommerce.filters.Secured;
+import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
 import java.util.List;
 
+@Stateless
+@Path("/order")
 public class OrderSource {
     
     @Inject
@@ -56,31 +60,60 @@ public class OrderSource {
     }
     
     // Создать заказ
-    // POST: http://desktop-9rtlih5:8090/ECommerce-Store-Java/api/cart/
+    // POST: http://desktop-9rtlih5:8090/ECommerce-Store-Java/api/order
     @Secured
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    public Response add() // (Order order)
+    public Response createOrder(Order order)
     {
-//        try{
-//            // Есть параметр cart передан неуспешно
-//            if(cart == null){
-//                return Response.status(Response.Status.CONFLICT)
-//                    .entity("Не удалось добавить кроссовки в корзину. Параметр cart == null")
-//                    .build();
-//            }
-//            
-//            Cart addedCart = cartRepository.addCart(cart);
-//            return Response.ok()
-//                           .entity(addedCart)
-//                           .build();
-//        }
-//        catch(Exception ex){
-//            return Response.status(Response.Status.CONFLICT)
-//                    .entity(" Не удоалось добавить кроссовки в корзину. Детали: " + ex.getMessage())
-//                    .build();
-//        }
-        return null;
+        try{
+            // Есть параметр cart передан неуспешно
+            if(order == null){
+                return Response.status(Response.Status.CONFLICT)
+                    .entity("Не удалось создать заказ. Параметр order == null")
+                    .build();
+            }
+            
+            orderRepository.createOrder(order);
+            
+            return Response.ok()
+                           .entity("Заказ успешно создан")
+                           .build();
+        }
+        catch(Exception ex){
+            return Response.status(Response.Status.CONFLICT)
+                    .entity(" Не удоалось добавить кроссовки в корзину. Детали: " + ex.getMessage())
+                    .build();
+        }
+    }
+    
+    // Создать заказ
+    // POST: http://desktop-9rtlih5:8090/ECommerce-Store-Java/api/order
+    @Secured
+    @DELETE
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Response cancelOrder(Order order)
+    {
+        try{
+            // Есть параметр cart передан неуспешно
+            if(order == null){
+                return Response.status(Response.Status.CONFLICT)
+                    .entity("Не удалось создать заказ. Параметр order == null")
+                    .build();
+            }
+            
+            orderRepository.createOrder(order);
+            
+            return Response.ok()
+                           .entity("Заказ успешно создан")
+                           .build();
+        }
+        catch(Exception ex){
+            return Response.status(Response.Status.CONFLICT)
+                    .entity(" Не удоалось добавить кроссовки в корзину. Детали: " + ex.getMessage())
+                    .build();
+        }
     }
 }

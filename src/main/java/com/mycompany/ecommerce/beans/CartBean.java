@@ -28,10 +28,14 @@ import jakarta.ws.rs.client.WebTarget;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 import com.mycompany.ecommerce.Cart;
 import com.mycompany.ecommerce.security.JwtUtil;
+import com.mycompany.ecommerce.Order;
+import com.mycompany.ecommerce.OrderItem;
 import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.MediaType;
 
 @Named
 @RequestScoped
@@ -112,7 +116,77 @@ public class CartBean {
     // Создать заказ
     public void createOrder()
     {
+        try{
+            // Создание клиента
+            Client client = ClientBuilder.newClient();
+            URI uri = new URI("http://desktop-9rtlih5:8090/ECommerce-Store-Java/api/order");
         
+            // Получение токена из сессии
+            String token = (String) FacesContext.getCurrentInstance()
+                .getExternalContext()
+                .getSessionMap()
+                .get("jwtToken");
+            
+            // Парсинг id пользователя из токена
+            String pureToken = token.replace("Bearer ", "");
+            String userId = JwtUtil.parseTokenForId(pureToken);
+        
+            // Получить выбранные элементы корзины
+            List<Cart> selectedCarts = carts.stream()
+                .filter(Cart::isSelected)
+                .collect(Collectors.toList());
+        
+            // Создание заказа
+            Order order = new Order();
+            order.setUserId(Integer.parseInt(userId));
+            order.setStatus("Создано");
+        
+            // Список элементов заказа
+            List<OrderItem> orderItems = new ArrayList<>();
+        
+            // Создать элементы заказа
+            for(Cart cart : selectedCarts)
+            {
+                OrderItem orderItem = new OrderItem();
+                orderItem.setSneakerId(cart.getSneakerId());
+                orderItem.setQuantity(1);
+                orderItem.setPrice(cart.getPrice());
+                
+                orderItem.setOrder(order);
+                
+                orderItems.add(orderItem);
+            }
+        
+            // Записать элементы заказа в заказ
+            order.setOrderItems(orderItems);
+        
+            // Отправка POST-запроса
+            WebTarget target = client.target(uri);
+            Response response = target.request("application/json")
+                .header("Authorization", token)
+                .post(Entity.entity(order, MediaType.APPLICATION_JSON));
+
+            // Успешный ответ
+            if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+            String successMessage = response.readEntity(String.class); // "Заказ успешно создан"
+            FacesContext.getCurrentInstance()
+                .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, successMessage, ""));
+            
+            // Удалить все заказанные элементы 
+            carts.removeAll(selectedCarts);
+            } 
+            // Обработка ошибок
+            else{
+            String errorMessage = response.readEntity(String.class);
+            FacesContext.getCurrentInstance()
+                .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка создания заказа", errorMessage));
+            }
+        }
+        catch (Exception e) {
+            // Логирование и уведомление об ошибке
+            FacesContext.getCurrentInstance()
+                .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка соединения с API", e.getMessage()));
+        }
     }
     
     // Посчитать итоговую стоимость корзины
@@ -161,6 +235,8 @@ public class CartBean {
                 .getSessionMap()
                 .get("jwtToken");
     }
+    
+    
     
     
     public List<Cart> getCarts() {

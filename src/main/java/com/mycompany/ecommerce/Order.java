@@ -3,6 +3,9 @@ package com.mycompany.ecommerce;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import jakarta.json.bind.annotation.JsonbTransient;
+import jakarta.json.bind.annotation.JsonbProperty;
+
 
 @Entity
 @Table(name = "orders")
@@ -16,12 +19,13 @@ public class Order {
     private int userId;
 
     @Column(name = "order_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime orderDate;
+    private LocalDateTime orderDate = LocalDateTime.now();
 
     @Column(name = "status", nullable = false, length = 50)
     private String status;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonbProperty("orderItems") // Если вы используете JSON-B
     private List<OrderItem> orderItems;
 
     // Getters and Setters
@@ -62,6 +66,15 @@ public class Order {
     }
 
     public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
+    this.orderItems = orderItems;
+    if (orderItems != null) {
+        orderItems.forEach(item -> item.setOrder(this));
+    }
+}
+    
+    // Исключаем обратную ссылку при сериализации
+    @JsonbTransient
+    public List<OrderItem> getOrderItemsForJson() {
+        return this.orderItems;
     }
 }
