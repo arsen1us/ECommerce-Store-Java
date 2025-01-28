@@ -2,13 +2,13 @@ package com.mycompany.ecommerce.resources;
 
 import com.mycompany.ecommerce.Cart;
 import com.mycompany.ecommerce.CartRepository;
-import com.mycompany.ecommerce.security.JwtUtil;
+import com.mycompany.ecommerce.filters.Secured;
+
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
-import org.mindrot.jbcrypt.BCrypt;
-import com.mycompany.ecommerce.filters.Secured;
+
 import java.util.List;
 import java.util.stream.Collectors;
 

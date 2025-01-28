@@ -3,12 +3,14 @@ package com.mycompany.ecommerce.resources;
 import com.mycompany.ecommerce.User;
 import com.mycompany.ecommerce.UserRepository;
 import com.mycompany.ecommerce.security.JwtUtil;
+import com.mycompany.ecommerce.filters.Secured;
+
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
+
 import org.mindrot.jbcrypt.BCrypt;
-import com.mycompany.ecommerce.filters.Secured;
 
 @Stateless
 @Path("/auth")
@@ -59,7 +61,7 @@ public class AuthResource {
     {
         try{
             // Проверка, не занята ли данная почта
-            if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            if (userRepository.findByEmail(user.getEmail()) == null) {
                 return Response.status(Response.Status.CONFLICT)
                     .entity("Email is already registered.")
                     .build();
@@ -69,11 +71,14 @@ public class AuthResource {
             user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
             userRepository.save(user);
 
+            // Костыль для получения id пользователя (задаётся на уровне бд)
+            User existingUser = userRepository.findByEmail(user.getEmail()).get();
+            
             // Генерация токена
             String token = JwtUtil.generateToken(
-                    user.getEmail(),
-                    user.getId(),
-                    user.getRole());
+                    existingUser.getEmail(),
+                    existingUser.getId(),
+                    existingUser.getRole());
             
             // Успешный ответ
             return Response.ok()

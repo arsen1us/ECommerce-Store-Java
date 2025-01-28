@@ -1,41 +1,27 @@
 package com.mycompany.ecommerce.beans;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mycompany.ecommerce.Sneaker;
-import jakarta.enterprise.context.RequestScoped;
+import com.mycompany.ecommerce.Cart;
+import com.mycompany.ecommerce.security.JwtUtil;
+import com.mycompany.ecommerce.Order;
+import com.mycompany.ecommerce.OrderItem;
+
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
-import jakarta.inject.Named;
-import java.io.Serializable;
-import java.net.URI;
 import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.Response;
-import com.mycompany.ecommerce.security.JwtUtil;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
-import jakarta.annotation.PostConstruct;
-import java.security.Key;
-
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.WebTarget;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.MediaType;
+
+import java.net.URI;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-import com.mycompany.ecommerce.Cart;
-import com.mycompany.ecommerce.security.JwtUtil;
-import com.mycompany.ecommerce.Order;
-import com.mycompany.ecommerce.OrderItem;
-import jakarta.ws.rs.core.GenericType;
-import jakarta.ws.rs.core.MediaType;
 
 @Named
 @RequestScoped

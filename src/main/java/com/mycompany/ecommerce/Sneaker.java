@@ -53,6 +53,11 @@ public class Sneaker {
     @Column(nullable = true)
     private Long categoryId;
     
+    // Путь до изображения кроссовок 
+    @Column(name = "image_url", nullable = false)
+    private String imageUrl;
+    
+    
     public void setId(Long id)
     {
         this.id = id;
@@ -118,5 +123,12 @@ public class Sneaker {
     public void setCategoryId(Long categoryId)
     {
         this.categoryId = categoryId;
+    }
+    
+    public String getImageUrl(){
+        return this.imageUrl;
+    }
+    public void setImageUrl(String imageUrl){
+        this.imageUrl = imageUrl;
     }
 }

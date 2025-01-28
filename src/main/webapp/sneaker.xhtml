@@ -8,7 +8,10 @@
     <h:body>
         <h1>Информация о кроссовке</h1>
 
+        <img src="#{sneakerDetailsBean.sneaker.imageUrl}" alt="Sneaker image" style="max-width: 200px; max-height: 200px;"/>
+        
         <h:panelGrid columns="2" rendered="#{not empty sneakerDetailsBean.sneaker}">
+            
             <h:outputText value="Название:" />
             <h:outputText value="#{sneakerDetailsBean.sneaker.name}" />
 

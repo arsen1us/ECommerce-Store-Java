@@ -14,6 +14,13 @@
     
     <dependencies>
         
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        
         <!-- Библиотеки для работы с jwt -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
@@ -79,12 +86,6 @@
             <artifactId>jersey-cdi1x</artifactId>
             <version>3.1.1</version>
         </dependency>
-        <!--
-        <dependency>
-            <groupId>org.jboss.weld.se</groupId>
-            <artifactId>weld-se-core</artifactId>
-            <version>6.0.0.Final</version>
-        </dependency> -->
         
         <dependency>
             <groupId>jakarta.json.bind</groupId>
@@ -93,15 +94,6 @@
         </dependency>
         
     </dependencies>
-    
-    <!-- Репозиторий для JBoss 
-    <repositories>
-        <repository>
-            <id>jboss-public-repository-group</id>
-            <name>JBoss Public Repository Group</name>
-            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
-        </repository>
-    </repositories>  -->
     
     <build>
         <plugins>

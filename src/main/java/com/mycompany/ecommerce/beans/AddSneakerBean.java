@@ -3,18 +3,23 @@ package com.mycompany.ecommerce.beans;
 import com.mycompany.ecommerce.Sneaker;
 import com.mycompany.ecommerce.SneakerRepository;
 
-import java.net.URI;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.Response;
-
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
+import jakarta.servlet.http.Part;
+import jakarta.servlet.ServletContext;
 
+import java.net.URI;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 @Named
 @RequestScoped
@@ -30,7 +35,8 @@ public class AddSneakerBean {
     private String color;
     private int count;
     private boolean available;
-
+    private Part sneakerImagePart;
+    
     public String getName() {
         return name;
     }
@@ -87,6 +93,13 @@ public class AddSneakerBean {
         this.available = available;
     }
 
+    public Part getSneakerImagePart(){
+        return this.sneakerImagePart;
+    }
+    public void setSneakerImagePart(Part sneakerImagePart){
+        this.sneakerImagePart = sneakerImagePart;
+    }
+        
     public void addSneaker() {
         try {
         // Получаем JWT токен из сессии
@@ -101,6 +114,24 @@ public class AddSneakerBean {
             return;
         }
 
+        String sneakerImageUrl = null;
+           
+            // Если аватар был загружен
+            if (sneakerImagePart != null && sneakerImagePart.getSubmittedFileName() != null) {
+                String fileName = sneakerImagePart.getSubmittedFileName();
+                
+                // Путь к папке uploads
+                ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+                String uploadsDir = servletContext.getRealPath("/uploads");
+                
+                // Сохраняем файл на сервере
+                Path filePath = Paths.get(uploadsDir, fileName);
+                Files.copy(sneakerImagePart.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+                
+                sneakerImageUrl = "uploads/" + fileName;
+            }
+        
+        
         // Создаем HTTP-клиент
         Client client = ClientBuilder.newClient();
         URI uri = new URI("http://desktop-9rtlih5:8090/ECommerce-Store-Java/api/sneaker");
@@ -114,6 +145,7 @@ public class AddSneakerBean {
         sneaker.setColor(color);
         sneaker.setCount(count);
         sneaker.setAvailable(available);
+        sneaker.setImageUrl(sneakerImageUrl);
 
         // Отправляем POST-запрос с объектом Sneaker в формате JSON, включая заголовок авторизации
         Response response = client.target(uri)

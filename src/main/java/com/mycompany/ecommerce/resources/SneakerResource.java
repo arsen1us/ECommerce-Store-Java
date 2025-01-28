@@ -2,12 +2,12 @@ package com.mycompany.ecommerce.resources;
 
 import com.mycompany.ecommerce.Sneaker;
 import com.mycompany.ecommerce.SneakerRepository;
-import com.mycompany.ecommerce.security.JwtUtil;
+
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
-import org.mindrot.jbcrypt.BCrypt;
+
 import java.util.List;
 
 @Stateless

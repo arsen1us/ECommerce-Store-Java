@@ -6,31 +6,31 @@
     <title>Add Sneaker</title>
 </h:head>
 <h:body>
-    <h:form id="addSneakerForm">
+    <h:form id="addSneakerForm" enctype="multipart/form-data">
         <h1>Add Sneaker</h1>
 
-        <!-- Input for Name -->
+        <!-- Название -->
         <h:outputLabel for="name" value="Name:" />
         <h:inputText id="name" value="#{addSneakerBean.name}" required="true"
                      requiredMessage="Name is required" />
         <h:message for="name" style="color:red;" />
         <br /><br />
 
-        <!-- Input for Brand -->
+        <!-- Бренд -->
         <h:outputLabel for="brand" value="Brand:" />
         <h:inputText id="brand" value="#{addSneakerBean.brand}" required="true"
                      requiredMessage="Brand is required" />
         <h:message for="brand" style="color:red;" />
         <br /><br />
 
-        <!-- Input for Price -->
+        <!-- Цена -->
         <h:outputLabel for="price" value="Price:" />
         <h:inputText id="price" value="#{addSneakerBean.price}" required="true"
                      requiredMessage="Price is required" />
         <h:message for="price" style="color:red;" />
         <br /><br />
 
-        <!-- Input for Size -->
+        <!-- Цвет -->
         <h:outputLabel for="size" value="Size:" />
         <h:inputText id="size" value="#{addSneakerBean.size}" required="true"
                      requiredMessage="Size is required" />
@@ -44,18 +44,24 @@
         <h:message for="color" style="color:red;" />
         <br /><br />
 
-        <!-- Input for Count -->
+        <!-- Количество -->
         <h:outputLabel for="count" value="Count:" />
         <h:inputText id="count" value="#{addSneakerBean.count}" required="true"
                      requiredMessage="Count is required" />
         <h:message for="count" style="color:red;" />
         <br /><br />
 
-        <!-- Checkbox for Availability -->
+        <!-- Чек бокс - есть ли кроссовки в наличии -->
         <h:outputLabel for="available" value="Available:" />
         <h:selectBooleanCheckbox id="available" value="#{addSneakerBean.available}" />
         <br /><br />
 
+        <!-- Поле для загрузки изображения -->
+        <h:outputLabel for="avatar" value="Avatar:" />
+        <h:inputFile id="avatar" value="#{addSneakerBean.sneakerImagePart}" />
+        <h:message for="avatar" style="color:red;" />
+        <br/><br/>
+        
         <!-- Submit Button -->
         <h:commandButton value="Add Sneaker" action="#{addSneakerBean.addSneaker}" />
         <h:messages style="color:red;" />

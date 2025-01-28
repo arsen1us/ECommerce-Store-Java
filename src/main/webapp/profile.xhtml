@@ -24,9 +24,10 @@
         <h:inputText id="email" value="#{userProfileBean.email}" readonly="true" />
         <br/><br/>
 
-        <!-- Кнопка загрузки данных профиля -->
-        <h:commandButton value="Load Profile" action="#{userBean.loadUserProfile}" />
-        <br/><br/>
+        <!-- Аватар пользователя -->
+        <h:outputLabel value="Avatar:" />
+        <br/>
+        <img src="#{userProfileBean.avatarUrl}" alt="User Avatar" style="max-width: 200px; max-height: 200px;"/>
     </h:form>
 </body>
 </html>
