@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+        <style>
+            /* Общие стили для шапки */
+            .header-container {
+                display: flex;
+                justify-content: center;
+                background-color: #f8f9fa;
+                padding: 20px;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .header-container a {
+                text-decoration: none;
+                color: #007bff;
+                font-size: 18px;
+                margin: 0 15px;
+                padding: 10px 15px;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+            }
+
+            .header-container a:hover {
+                background-color: #007bff;
+                color: white;
+            }
+
+            .header-container a.active {
+                font-weight: bold;
+                background-color: #0056b3;
+                color: white;
+            }
+
+            /* Стили для контейнера */
+            .header-logo {
+                font-size: 24px;
+                font-weight: bold;
+                color: #343a40;
+                margin-right: 20px;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h:form>
+            <!-- Контейнер для шапки -->
+            <div class="header-container">
+                <!-- Логотип или название сайта -->
+                <h:outputText value="Магазин кроссовок" styleClass="header-logo" />
+
+                <!-- Ссылки на страницы -->
+                <h:link value="Главная" outcome="home.xhtml" styleClass="header-link" />
+                <h:link value="Категории" outcome="categories.xhtml" styleClass="header-link" />
+                <h:link value="Корзина" outcome="cart.xhtml" styleClass="header-link" />
+                <h:link value="Заказы" outcome="orders.xhtml" styleClass="header-link" />
+                <h:link value="Профиль" outcome="profile.xhtml" styleClass="header-link" />
+            </div>
+        </h:form>
+    </h:body>
+</html>

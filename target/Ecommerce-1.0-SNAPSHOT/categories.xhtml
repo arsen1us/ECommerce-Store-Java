@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>Категории</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .table {
+            width: 80%;
+            margin: 20px auto;
+            padding: 15px;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .table th, .table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+        }
+
+        .table td {
+            background-color: #f9f9f9;
+        }
+
+        .table td:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</h:head>
+<h:body>
+    <header>
+        <ui:include src="header.xhtml" />
+    </header>
+    <h:form>
+        <h1>Список категорий</h1>
+        
+        <h:dataTable value="#{categoryBean.categories}" var="category" border="1" styleClass="table">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Название" />
+                </f:facet>
+                <h:outputText value="#{category.name}" />
+            </h:column>
+        </h:dataTable>
+    </h:form>
+</h:body>
+</html>

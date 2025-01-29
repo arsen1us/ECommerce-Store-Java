@@ -5,21 +5,71 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <head>
     <title>Sneaker List</title>
+    <style>
+        .sneaker-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .sneaker-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 250px;
+            padding: 15px;
+            text-align: center;
+            background-color: #f9f9f9;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sneaker-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .sneaker-card h2 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .sneaker-card p {
+            margin: 5px 0;
+        }
+
+        .sneaker-card a {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            padding: 8px;
+            border-radius: 5px;
+        }
+
+        .sneaker-card a:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1>Полный список кроссовок</h1>
+    <h1>Cписок кроссовок</h1>
 
-    <!-- Вывод сообщения об ошибке -->
     <h:messages id="messages" globalOnly="true" />
 
-    <ul>
+    <div class="sneaker-container">
         <ui:repeat value="#{sneakerBean.sneakers}" var="sneaker">
-            <li>
-                <h:link value="#{sneaker.name}" outcome="sneaker">
+            <div class="sneaker-card">
+                <img src="#{sneaker.imageUrl}" alt="Sneaker Image" />
+                <h2>#{sneaker.name}</h2>
+                <p><strong>Бренд:</strong> #{sneaker.brand}</p>
+                <p><strong>Цена:</strong> #{sneaker.price}</p>
+                <h:link value="Подробнее" outcome="sneaker">
                     <f:param name="id" value="#{sneaker.id}" />
                 </h:link>
-            </li>
+            </div>
         </ui:repeat>
-    </ul>
+    </div>
 </body>
 </html>

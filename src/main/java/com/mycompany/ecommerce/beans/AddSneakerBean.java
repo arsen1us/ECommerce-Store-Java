@@ -1,25 +1,31 @@
 package com.mycompany.ecommerce.beans;
 
-import com.mycompany.ecommerce.Sneaker;
 import com.mycompany.ecommerce.SneakerRepository;
+import com.mycompany.ecommerce.Sneaker;
+import com.mycompany.ecommerce.Category;
 
-import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Entity;
-import jakarta.ws.rs.core.Response;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.context.FacesContext;
-import jakarta.inject.Named;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.servlet.http.Part;
 import jakarta.servlet.ServletContext;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.Response;
 
 import java.net.URI;
+import java.util.List;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+
 
 @Named
 @RequestScoped
@@ -27,6 +33,8 @@ public class AddSneakerBean {
     
     @Inject
     private SneakerRepository _sneakerRepository;
+    
+    private List<Category> categories;
     
     private String name;
     private String brand;
@@ -36,6 +44,7 @@ public class AddSneakerBean {
     private int count;
     private boolean available;
     private Part sneakerImagePart;
+    private Long categoryId;
     
     public String getName() {
         return name;
@@ -100,6 +109,20 @@ public class AddSneakerBean {
         this.sneakerImagePart = sneakerImagePart;
     }
         
+    public Long getCategoryId() {
+        return categoryId;
+    }
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+    
+    @PostConstruct
+    public void init() {
+        // Загрузить категории
+        loadCategories();
+    }
+    
+    // Создать кроссовки
     public void addSneaker() {
         try {
         // Получаем JWT токен из сессии
@@ -146,6 +169,7 @@ public class AddSneakerBean {
         sneaker.setCount(count);
         sneaker.setAvailable(available);
         sneaker.setImageUrl(sneakerImageUrl);
+        sneaker.setCategoryId(categoryId);
 
         // Отправляем POST-запрос с объектом Sneaker в формате JSON, включая заголовок авторизации
         Response response = client.target(uri)
@@ -167,6 +191,52 @@ public class AddSneakerBean {
         FacesContext.getCurrentInstance().addMessage(null, 
             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed to add sneaker: " + e.getMessage(), null));
         }
+    }
+    
+    // Загрузить список категорий
+    public void loadCategories(){
+        try {
+            // Получение токена из сессии
+            String token = getJwtToken();
+            
+            Client client = ClientBuilder.newClient();
+            URI uri = new URI("http://desktop-9rtlih5:8090/ECommerce-Store-Java/api/category");
+            
+            // Отправка GET-запроса
+            WebTarget target = client.target(uri);
+            Response response = target.request("application/json")
+                .header("Authorization", token)
+                .get();
+
+            if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+                // Успешный ответ
+                this.categories = response.readEntity(new GenericType<List<Category>>() {});
+            } else {
+                // Обработка ошибки
+                String errorMessage = response.readEntity(String.class);
+                FacesContext.getCurrentInstance()
+                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка загрузки категорий", errorMessage));
+            }
+        } catch (Exception e) {
+            // Логирование и уведомление об ошибке
+            FacesContext.getCurrentInstance()
+                .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка соединения с API", e.getMessage()));
+        } 
+    }
+    
+    // Получить jwt-токен
+    private String getJwtToken() {
+        return (String) FacesContext.getCurrentInstance()
+                .getExternalContext()
+                .getSessionMap()
+                .get("jwtToken");
+    }
+    
+    public List<Category> getCategories() {
+        return this.categories;
+    }
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 }
 

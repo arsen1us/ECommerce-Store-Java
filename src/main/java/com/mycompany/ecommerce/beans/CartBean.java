@@ -76,28 +76,6 @@ public class CartBean {
                 .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка соединения с API", e.getMessage()));
         } 
     }
-    
-    // Удаление кроссовок из корзины
-    public String deleteFromCart(long cartId) {
-//        try {
-//            URL url = new URL("http://desktop-9rtlih5:8090/ECommerce-Store-Java/api/cart/" + sneaker.getId());
-//            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//            connection.setRequestMethod("DELETE");
-//            connection.setRequestProperty("Authorization", "Bearer " + getJwtToken());
-//            connection.setRequestProperty("Accept", "application/json");
-//
-//            int responseCode = connection.getResponseCode();
-//            if (responseCode == 200) {
-//                System.out.println("Sneaker deleted successfully.");
-//                this.sneaker = null; // Убираем объект после удаления
-//            } else {
-//                System.out.println("Failed to delete sneaker. Response code: " + responseCode);
-//            }
-//        } catch (Exception ex) {
-//            System.out.println("Error deleting sneaker: " + ex.getMessage());
-//        }
-        return "";
-    }
 
     // Создать заказ
     public void createOrder()

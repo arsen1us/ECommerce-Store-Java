@@ -29,4 +29,12 @@ public class OrderRepository {
             System.out.print("Не удалось создать заказ с элементами заказа. Детали: " + ex.getMessage());
         }
     }
+    
+    // Метод для получения заказов по userId в требуемом стиле
+    public List<Order> getOrdersByUserId(long userId) {
+        return entityManager
+            .createQuery("SELECT o FROM Order o WHERE o.userId = :userId", Order.class)
+            .setParameter("userId", userId)
+            .getResultList();
+    }
 }

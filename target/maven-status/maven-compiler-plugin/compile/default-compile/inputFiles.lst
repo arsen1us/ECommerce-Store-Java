@@ -1,4 +1,5 @@
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\beans\CartBean.java
+C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\beans\CategoryBean.java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\beans\AddCartBean.java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\filters\Secured.java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\UserRepository.java
@@ -13,9 +14,11 @@ C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\filters\JwtFilter.java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\beans\OrderBean.java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\JakartaRestConfiguration.java
+C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\resources\CategoryResource.java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\OrderRepository.java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\beans\AddSneakerBean.java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\OrderItem.java
+C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\CategoryRepository.java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\resources\JakartaEE10Resource.java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\resources\OrderResource.java
 C:\Users\gamer\OneDrive\Документы\NetBeansProjects\ECommerce-Store-Java\src\main\java\com\mycompany\ecommerce\Order.java

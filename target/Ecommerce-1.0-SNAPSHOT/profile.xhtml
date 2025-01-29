@@ -1,33 +1,113 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <head>
     <title>User Profile</title>
+    <style>
+        .profile-container {
+            width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .profile-container h1 {
+            margin-bottom: 20px;
+        }
+
+        .profile-field {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .profile-field label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .profile-field input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f5f5f5;
+            color: #555;
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        .avatar-container {
+            margin: 20px 0;
+        }
+
+        .avatar-container img {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .edit-button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .edit-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h:form id="profileForm">
-        <h1>User Profile</h1>
+    <header>
+        <ui:include src="header.xhtml" />
+    </header>
+    <div class="profile-container">
+        <h1>Профиль пользователя</h1>
 
-        <!-- ID пользователя -->
-        <h:outputLabel for="id" value="User ID:" />
-        <h:inputText id="id" value="#{userProfileBean.id}" readonly="true" />
-        <br/><br/>
+        <h:form id="profileForm">
+            
+            <!-- Аватар пользователя -->
+            <div class="avatar-container">
+                <h:outputLabel value="Аватар:" />
+                <br />
+                <img src="#{userProfileBean.avatarUrl}" alt="User Avatar" />
+            </div>
+            
+            <!-- ID пользователя -->
+            <div class="profile-field">
+                <h:outputLabel for="id" value="ID пользователя:" />
+                <h:inputText id="id" value="#{userProfileBean.id}" readonly="true" />
+            </div>
 
-        <!-- Имя пользователя -->
-        <h:outputLabel for="name" value="Name:" />
-        <h:inputText id="name" value="#{userProfileBean.name}" readonly="true" />
-        <br/><br/>
+            <!-- Имя пользователя -->
+            <div class="profile-field">
+                <h:outputLabel for="name" value="Имя:" />
+                <h:inputText id="name" value="#{userProfileBean.name}" readonly="true" />
+            </div>
 
-        <!-- Email пользователя -->
-        <h:outputLabel for="email" value="Email:" />
-        <h:inputText id="email" value="#{userProfileBean.email}" readonly="true" />
-        <br/><br/>
+            <!-- Email пользователя -->
+            <div class="profile-field">
+                <h:outputLabel for="email" value="Email:" />
+                <h:inputText id="email" value="#{userProfileBean.email}" readonly="true" />
+            </div>
 
-        <!-- Аватар пользователя -->
-        <h:outputLabel value="Avatar:" />
-        <br/>
-        <img src="#{userProfileBean.avatarUrl}" alt="User Avatar" style="max-width: 200px; max-height: 200px;"/>
-    </h:form>
+            <!-- Кнопка редактирования профиля -->
+            <h:commandButton value="Редактировать" action="#{userProfileBean.edit}" styleClass="edit-button" />
+        </h:form>
+        
+        <ui:include src="cart.xhtml" />
+        <ui:include src="orders.xhtml" />
+    </div>
 </body>
 </html>

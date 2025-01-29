@@ -1,0 +1,6 @@
+com\mycompany\ecommerce\beans\CategoryBean.class
+com\mycompany\ecommerce\resources\CategoryResource.class
+com\mycompany\ecommerce\beans\AddSneakerBean$1.class
+com\mycompany\ecommerce\beans\CategoryBean$1.class
+com\mycompany\ecommerce\beans\OrderBean$1.class
+com\mycompany\ecommerce\CategoryRepository.class

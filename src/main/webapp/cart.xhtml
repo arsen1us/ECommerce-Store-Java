@@ -1,53 +1,172 @@
-<!DOCTYPE html>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:head>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<head>
     <title>Корзина</title>
-</h:head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .cart-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .cart-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 300px;
+            padding: 15px;
+            text-align: center;
+            background-color: #f9f9f9;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .cart-card h3 {
+            font-size: 20px;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .cart-card p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .cart-card .cart-price {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .cart-card .cart-actions {
+            margin-top: 10px;
+        }
+
+        .cart-card .cart-actions a {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            padding: 8px;
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+        .cart-card .cart-actions a:hover {
+            background-color: #0056b3;
+        }
+
+        .cart-footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .empty-cart-message {
+            font-size: 18px;
+            color: #f44336;
+            text-align: center;
+        }
+
+        .cart-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .cart-footer h:commandButton,
+        .cart-footer h:link {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .cart-footer h:commandButton:hover,
+        .cart-footer h:link:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
 <h:body>
     <h1>Корзина пользователя</h1>
 
-    <!-- Список кроссовок в корзине -->
     <h:form>
-        
-        <h:panelGroup>
-            <h:outputLabel value="Общая стоимость:" />
-            <h:outputText value="#{cartBean.totalCartPrice}" />
-        </h:panelGroup>
-        
-        <h:dataTable value="#{cartBean.carts}" var="cart" border="1">
-            <h:column>
-                <f:facet name="header">Выбрать</f:facet>
-                <h:selectBooleanCheckbox value="#{cart.selected}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">Название</f:facet>
-                <h:outputText value="#{cart.id}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">Бренд</f:facet>
-                <h:outputText value="#{cart.userId}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">Цена</f:facet>
-                <h:outputText value="#{cart.sneakerId}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">Действия</f:facet>
-                <h:commandButton value="Удалить" action="#{cartBean.deleteFromCart(cart.id)}" />
-            </h:column>
-        </h:dataTable>
+        <div class="cart-container">
+            <!-- Список товаров в корзине -->
+            <h:dataTable value="#{cartBean.carts}" var="cart" border="0">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Выбрать" />
+                    </f:facet>
+                    <h:selectBooleanCheckbox value="#{cart.selected}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Id" />
+                    </f:facet>
+                    <h:outputText value="#{cart.id}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Бренд" />
+                    </f:facet>
+                    <h:outputText value="#{cart.userId}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Цена" />
+                    </f:facet>
+                    <h:outputText value="#{cart.sneakerId}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Действия" />
+                    </f:facet>
+                    <h:commandButton value="Удалить" action="#{cartBean.deleteFromCart(cart.id)}" />
+                </h:column>
+            </h:dataTable>
+        </div>
 
         <h:panelGroup rendered="#{cartBean.carts.isEmpty()}">
-            <h:outputText value="Ваша корзина пуста." />
+            <div class="empty-cart-message">
+                <h:outputText value="Ваша корзина пуста." />
+            </div>
+        </h:panelGroup>
+
+        <!-- Показать общую стоимость -->
+        <h:panelGroup>
+            <p class="cart-price">Общая стоимость: #{cartBean.totalCartPrice}</p>
         </h:panelGroup>
 
         <!-- Кнопка для оформления заказа -->
-        <h:commandButton value="Оформить заказ" action="#{cartBean.createOrder}" rendered="#{not cartBean.carts.isEmpty()}" />
+        <div class="cart-footer">
+            <h:commandButton value="Оформить заказ" action="#{cartBean.createOrder}" rendered="#{not cartBean.carts.isEmpty()}" />
+        </div>
     </h:form>
 
     <!-- Ссылка для возврата -->
-    <h:link value="Вернуться к списку кроссовок" outcome="allSneakers" />
+    <div class="cart-footer">
+        <h:link value="Вернуться к списку товаров" outcome="home.xhtml" />
+    </div>
 </h:body>
 </html>
